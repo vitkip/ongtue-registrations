@@ -442,160 +442,151 @@ include 'includes/header.php';
                 <!-- File Uploads -->
                 <div class="pb-6">
                     <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                        📄 ເອກະສານ ແລະ ການຊຳລະເງິນ
-                                            </h2>
-                                            
-                                            <!-- Payment Information -->
-                                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-                                                <h3 class="text-lg font-semibold text-blue-900 mb-4 flex items-center">
-                                                    🏦 ຂໍ້ມູນການຊຳລະເງິນ
-                                                </h3>
-                                                <div class="bg-white rounded-lg p-4">
-                                                    <div class="flex items-center justify-between bg-red-600 text-white p-4 rounded-lg">
-                                                        <div class="flex items-center">
-                                                            <span class="text-2xl mr-3">💳</span>
-                                                            <div>
-                                                                <p class="font-semibold">ຊື່ບັນຊີ: ANANTHASAK PHATHASIRA MONNK</p>
-                                                                <div class="flex items-center justify-between flex-wrap gap-2">
-                                                                    <div class="flex-1">
-                                                                        <p class="text-red-100">ເລກບັນຊີ BCEL ONE:</p>
-                                                                        <p class="text-white font-mono text-lg font-bold" id="accountNumber">010120001062171001</p>
-                                                                    </div>
-                                                                    <button type="button" onclick="copyAccountNumber()" id="copyBtn" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 hover:scale-105">
-                                                                        <span id="copyIcon">📋</span>
-                                                                        <span id="copyText">Copy</span>
-                                                                    </button>
+                        📄 ເອກະສານ ແລະ ການຊຳລະເງິນ                      
+                    </h2>
+                    <!-- Payment Information -->
+                                            <div class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border border-blue-200 rounded-xl p-4 sm:p-6 mb-6 shadow-sm">
+                                                <div class="flex items-center justify-between mb-6">
+                                                    <h3 class="text-lg sm:text-xl font-bold text-blue-900 flex items-center">
+                                                        🏦 <span class="ml-2">ຂໍ້ມູນການຊຳລະເງິນ</span>
+                                                    </h3>
+                                                    <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
+                                                        📱 Mobile Ready
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Main Payment Card -->
+                                                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-blue-100">
+                                                    <!-- BCEL Header -->
+                                                    <div class="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white p-4 sm:p-6 relative overflow-hidden">
+                                                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-50"></div>
+                                                        <div class="relative flex items-center justify-between">
+                                                            <div class="flex items-center space-x-3">
+                                                                <div class="bg-white/20 p-2 rounded-lg">
+                                                                    <span class="text-2xl">💳</span>
                                                                 </div>
-
-                                                                <script>
-                                                                function copyAccountNumber() {
-                                                                    const accountText = '010120001062171001';
-                                                                    const copyBtn = document.getElementById('copyBtn');
-                                                                    const copyIcon = document.getElementById('copyIcon');
-                                                                    const copyText = document.getElementById('copyText');
-                                                                    
-                                                                    // Show loading state
-                                                                    copyBtn.disabled = true;
-                                                                    copyIcon.textContent = '⏳';
-                                                                    copyText.textContent = 'ກຳລັງ...';
-                                                                    
-                                                                    if (navigator.clipboard && window.isSecureContext) {
-                                                                        // Use modern clipboard API
-                                                                        navigator.clipboard.writeText(accountText).then(function() {
-                                                                            showCopySuccess();
-                                                                        }).catch(function() {
-                                                                            fallbackCopy(accountText);
-                                                                        });
-                                                                    } else {
-                                                                        // Fallback for older browsers
-                                                                        fallbackCopy(accountText);
-                                                                    }
-                                                                    
-                                                                    function showCopySuccess() {
-                                                                        // Show success state
-                                                                        copyIcon.textContent = '✅';
-                                                                        copyText.textContent = 'ຄັດລອກແລ້ວ!';
-                                                                        copyBtn.className = 'bg-green-500 bg-opacity-90 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1';
-                                                                        
-                                                                        // Show toast notification
-                                                                        showToast('✅ ຄັດລອກເລກບັນຊີສຳເລັດແລ້ວ!', 'success');
-                                                                        
-                                                                        // Reset button after 2 seconds
-                                                                        setTimeout(function() {
-                                                                            copyBtn.disabled = false;
-                                                                            copyIcon.textContent = '📋';
-                                                                            copyText.textContent = 'Copy';
-                                                                            copyBtn.className = 'bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 hover:scale-105';
-                                                                        }, 2000);
-                                                                    }
-                                                                    
-                                                                    function showCopyError() {
-                                                                        // Show error state
-                                                                        copyIcon.textContent = '❌';
-                                                                        copyText.textContent = 'ຜິດພາດ';
-                                                                        copyBtn.className = 'bg-red-500 bg-opacity-90 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1';
-                                                                        
-                                                                        // Show error notification
-                                                                        showToast('❌ ບໍ່ສາມາດຄັດລອກໄດ້: ' + accountText, 'error');
-                                                                        
-                                                                        // Reset button after 3 seconds
-                                                                        setTimeout(function() {
-                                                                            copyBtn.disabled = false;
-                                                                            copyIcon.textContent = '📋';
-                                                                            copyText.textContent = 'Copy';
-                                                                            copyBtn.className = 'bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 hover:scale-105';
-                                                                        }, 3000);
-                                                                    }
-                                                                }
-
-                                                                function fallbackCopy(text) {
-                                                                    const textArea = document.createElement('textarea');
-                                                                    textArea.value = text;
-                                                                    textArea.style.position = 'fixed';
-                                                                    textArea.style.left = '-999999px';
-                                                                    textArea.style.top = '-999999px';
-                                                                    document.body.appendChild(textArea);
-                                                                    textArea.focus();
-                                                                    textArea.select();
-                                                                    
-                                                                    try {
-                                                                        const successful = document.execCommand('copy');
-                                                                        if (successful) {
-                                                                            showCopySuccess();
-                                                                        } else {
-                                                                            showCopyError();
-                                                                        }
-                                                                    } catch (err) {
-                                                                        showCopyError();
-                                                                    }
-                                                                    
-                                                                    document.body.removeChild(textArea);
-                                                                }
-
-                                                                // Toast notification system
-                                                                function showToast(message, type = 'success') {
-                                                                    // Remove existing toast if any
-                                                                    const existingToast = document.getElementById('copyToast');
-                                                                    if (existingToast) {
-                                                                        existingToast.remove();
-                                                                    }
-                                                                    
-                                                                    // Create toast element
-                                                                    const toast = document.createElement('div');
-                                                                    toast.id = 'copyToast';
-                                                                    toast.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-white font-medium animate-fade-in ${
-                                                                        type === 'success' ? 'bg-green-500' : 'bg-red-500'
-                                                                    }`;
-                                                                    toast.style.maxWidth = '300px';
-                                                                    toast.textContent = message;
-                                                                    
-                                                                    // Add to page
-                                                                    document.body.appendChild(toast);
-                                                                    
-                                                                    // Auto remove after 3 seconds
-                                                                    setTimeout(function() {
-                                                                        if (toast && toast.parentNode) {
-                                                                            toast.style.opacity = '0';
-                                                                            setTimeout(function() {
-                                                                                if (toast && toast.parentNode) {
-                                                                                    toast.remove();
-                                                                                }
-                                                                            }, 300);
-                                                                        }
-                                                                    }, 3000);
-                                                                }
-                                                                </script>
-                                                                <p class="font-semibold">ຄ່າລົງທະບຽນ: 200.000 ກີບ</p>
+                                                                <div>
+                                                                    <h4 class="text-lg sm:text-xl font-bold">BCEL ONE</h4>
+                                                                    <p class="text-red-100 text-xs sm:text-sm">ບັນຊີຮັບຈ່າຍເງິນ</p>
+                                                                </div>
+                                                            </div>
+                                                            <img src="image/logobcel.png" alt="BCEL ONE" class="h-8 sm:h-10 w-auto opacity-90 filter brightness-0 invert" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Account Details -->
+                                                    <div class="p-4 sm:p-6 space-y-6">
+                                                        <!-- Account Holder -->
+                                                        <div class="bg-gray-50 rounded-lg p-4">
+                                                            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">
+                                                                👤 ຊື່ເຈົ້າຂອງບັນຊີ
+                                                            </label>
+                                                            <p class="text-gray-900 font-bold text-base sm:text-lg">ANANTHASAK PHATHASIRA MONK</p>
+                                                        </div>
+                                                        
+                                                        <!-- Account Number with Enhanced Copy -->
+                                                        <div class="bg-red-50 border-2 border-red-200 rounded-lg p-4">
+                                                            <label class="block text-xs font-semibold text-red-600 uppercase tracking-wide mb-3">
+                                                                🏦 ເລກບັນຊີ BCEL ONE
+                                                            </label>
+                                                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                                                                <div class="flex-1 bg-white rounded-lg border border-red-300 p-3 shadow-sm">
+                                                                    <p class="text-red-800 font-mono font-black text-lg sm:text-xl tracking-widest select-all" 
+                                                                       id="accountNumber">010120001062171001</p>
+                                                                </div>
+                                                                <button type="button" onclick="copyAccountNumber()" id="copyBtn" 
+                                                                        class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 min-w-[120px]">
+                                                                    <span id="copyIcon" class="text-lg">📋</span>
+                                                                    <span id="copyText" class="text-sm">ຄັດລອກ</span>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <div class="flex items-center"> 
-                                                            <img src="image/logobcel.png" alt="BCEL ONE" class="h-8 w-auto" />
+                                                        
+                                                        <!-- Amount -->
+                                                        <div class="bg-green-50 border-2 border-green-200 rounded-lg p-4">
+                                                            <label class="block text-xs font-semibold text-green-600 uppercase tracking-wide mb-2">
+                                                                💰 ຄ່າລົງທະບຽນ
+                                                            </label>
+                                                            <div class="flex items-baseline space-x-2">
+                                                                <p class="text-green-800 font-black text-2xl sm:text-3xl">200,000</p>
+                                                                <p class="text-green-600 font-medium text-lg">ກີບ</p>
+                                                            </div>
+                                                            <p class="text-green-600 text-xs mt-1 font-medium">Two Hundred Thousand Kip</p>
+                                                        </div>
+                                                        
+                                                        <!-- QR Code Section (Mobile Optimized) -->
+                                                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+                                                            <div class="text-center">
+                                                                <h5 class="text-sm font-bold text-blue-900 mb-3 flex items-center justify-center">
+                                                                    <span class="bg-blue-600 text-white p-1 rounded-full mr-2">📱</span>
+                                                                    ສະແກນ QR Code ເພື່ອຈ່າຍດ່ວນ
+                                                                </h5>
+                                                                
+                                                                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                                                    <!-- QR Code -->
+                                                                    <div class="bg-white border-2 border-blue-300 rounded-xl p-3 shadow-sm">
+                                                                        <div class="w-32 h-32 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                                                                            <img src="./image/qrcode.png" alt="BCEL ONE QR Code" 
+                                                                                 class="w-full h-full object-contain transition-opacity duration-300"
+                                                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" 
+                                                                                 onload="this.style.opacity='1';" style="opacity:0;" />
+                                                                            <div class="w-full h-full flex items-center justify-center text-center bg-gray-50" style="display: none;">
+                                                                                <div>
+                                                                                    <div class="text-3xl mb-2">📱</div>
+                                                                                    <p class="text-xs text-gray-600">QR Code<br>ກຳລັງໂຫຼດ...</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <!-- Instructions -->
+                                                                    <div class="text-left space-y-2">
+                                                                        <div class="flex items-center text-blue-700 text-sm">
+                                                                            <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">1</span>
+                                                                            <span>ເປີດແອັບ BCEL ONE</span>
+                                                                        </div>
+                                                                        <div class="flex items-center text-blue-700 text-sm">
+                                                                            <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">2</span>
+                                                                            <span>ສະແກນ QR Code</span>
+                                                                        </div>
+                                                                        <div class="flex items-center text-blue-700 text-sm">
+                                                                            <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">3</span>
+                                                                            <span>ຢືນຢັນການຈ່າຍ</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Payment Methods -->
+                                                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                                                            <h5 class="text-sm font-bold text-amber-900 mb-3 flex items-center">
+                                                                <span class="bg-amber-600 text-white p-1 rounded-full mr-2">💡</span>
+                                                                ວິທີການຈ່າຍເງິນ
+                                                            </h5>
+                                                            
+                                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                                <div class="bg-white rounded-lg p-3 border border-amber-200">
+                                                                    <div class="flex items-center mb-2">
+                                                                        <span class="text-lg mr-2">📱</span>
+                                                                        <span class="font-semibold text-amber-900 text-sm">ແອັບ BCEL ONE</span>
+                                                                    </div>
+                                                                    <p class="text-amber-700 text-xs">ສະແກນ QR ຫຼື ໃຊ້ເລກບັນຊີ</p>
+                                                                </div>
+                                                                
+                                                                <div class="bg-white rounded-lg p-3 border border-amber-200">
+                                                                    <div class="flex items-center mb-2">
+                                                                        <span class="text-lg mr-2">🏪</span>
+                                                                        <span class="font-semibold text-amber-900 text-sm">ຈຸດບໍລິການ BCEL</span>
+                                                                    </div>
+                                                                    <p class="text-amber-700 text-xs">ທຸກສາຂາທົ່ວປະເທດ</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
-                    </h2>
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="profile_image" class="block text-sm font-medium text-gray-700 mb-2">
@@ -635,49 +626,229 @@ include 'includes/header.php';
 </div>
 
 <script>
-// Form validation and submission handling
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
-    const submitBtn = document.getElementById('submitBtn');
+// =======================
+// CONSOLIDATED JAVASCRIPT
+// =======================
+
+// Payment Functions
+// -----------------
+function copyAccountNumber() {
+    const accountText = '010120001062171001';
+    const copyBtn = document.getElementById('copyBtn');
+    const copyIcon = document.getElementById('copyIcon');
+    const copyText = document.getElementById('copyText');
     
-    // Check required files
-    const profileImage = document.getElementById('profile_image');
-    const paymentProof = document.getElementById('payment_proof');
+    // Loading state with haptic feedback
+    copyBtn.disabled = true;
+    copyBtn.classList.add('scale-95');
+    copyIcon.textContent = '⏳';
+    copyText.textContent = 'ກຳລັງ...';
     
-    if (!profileImage.files.length) {
-        e.preventDefault();
-        alert('ກະລຸນາອັບໂຫຼດຮູບໂປຣໄຟລ໌');
-        profileImage.focus();
-        return;
+    // Haptic feedback for mobile
+    if (navigator.vibrate) {
+        navigator.vibrate(50);
     }
     
-    if (!paymentProof.files.length) {
-        e.preventDefault();
-        alert('ກະລຸນາອັບໂຫຼດໃບຢັ້ງຢືນການຈ່າຍເງິນ');
-        paymentProof.focus();
-        return;
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(accountText).then(function() {
+            showCopySuccess();
+        }).catch(function() {
+            fallbackCopy(accountText);
+        });
+    } else {
+        fallbackCopy(accountText);
     }
     
-    // Validate form first
-    if (!validateForm('registrationForm')) {
-        e.preventDefault();
-        alert('ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ');
-        return;
-    }
-    
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="animate-spin inline-block">⏳</span> ກຳລັງປະມວນຜົນ...';
-    
-    // Re-enable button after 30 seconds as safety measure
-    setTimeout(function() {
-        if (submitBtn.disabled) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '🚀 ສົ່ງການລົງທະບຽນ';
+    function showCopySuccess() {
+        copyIcon.textContent = '✅';
+        copyText.textContent = 'ຄັດລອກແລ້ວ!';
+        copyBtn.className = 'w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 shadow-md min-w-[120px] scale-100';
+        
+        showToast('✅ ຄັດລອກເລກບັນຊີສຳເລັດ!<br><small>ເປີດແອັບ BCEL ONE ເພື່ອໂອນເງິນ</small>', 'success');
+        
+        // Haptic success feedback
+        if (navigator.vibrate) {
+            navigator.vibrate([100, 30, 100]);
         }
-    }, 30000);
+        
+        setTimeout(function() {
+            copyBtn.disabled = false;
+            copyIcon.textContent = '📋';
+            copyText.textContent = 'ຄັດລອກ';
+            copyBtn.className = 'w-full sm:w-auto bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 min-w-[120px]';
+        }, 3000);
+    }
+    
+    function showCopyError() {
+        copyIcon.textContent = '❌';
+        copyText.textContent = 'ຜິດພາດ';
+        copyBtn.className = 'w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 shadow-md min-w-[120px] scale-100';
+        
+        showToast('❌ ບໍ່ສາມາດຄັດລອກໄດ້<br><small>ກະລຸນາຄັດລອກເອງ: ' + accountText + '</small>', 'error');
+        
+        setTimeout(function() {
+            copyBtn.disabled = false;
+            copyIcon.textContent = '📋';
+            copyText.textContent = 'ຄັດລອກ';
+            copyBtn.className = 'w-full sm:w-auto bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 min-w-[120px]';
+        }, 4000);
+    }
+    
+    function fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showCopySuccess();
+            } else {
+                showCopyError();
+            }
+        } catch (err) {
+            showCopyError();
+        }
+        
+        document.body.removeChild(textArea);
+    }
+}
+
+// Toast Notification System
+// -------------------------
+function showToast(message, type = 'success') {
+    const existingToast = document.getElementById('paymentToast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.id = 'paymentToast';
+    toast.className = `fixed top-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 z-50 px-6 py-4 rounded-xl shadow-2xl text-white font-medium transform transition-all duration-300 ${
+        type === 'success' ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-red-500 to-red-600'
+    }`;
+    toast.style.transform = 'translateY(-20px) scale(0.95)';
+    toast.style.opacity = '0';
+    toast.innerHTML = message;
+    
+    document.body.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => {
+        toast.style.transform = 'translateY(0) scale(1)';
+        toast.style.opacity = '1';
+    }, 10);
+    
+    // Auto remove with animation
+    setTimeout(function() {
+        if (toast && toast.parentNode) {
+            toast.style.transform = 'translateY(-20px) scale(0.95)';
+            toast.style.opacity = '0';
+            setTimeout(function() {
+                if (toast && toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
+        }
+    }, 4000);
+}
+
+// Image Preview Function
+// ----------------------
+function previewImage(input, previewId) {
+    const file = input.files[0];
+    const preview = document.getElementById(previewId);
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = '';
+        preview.classList.add('hidden');
+    }
+}
+
+// Form Validation Function
+// ------------------------
+function validateForm(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return false;
+    
+    const requiredFields = form.querySelectorAll('[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            field.classList.add('border-red-500');
+            isValid = false;
+        } else {
+            field.classList.remove('border-red-500');
+        }
+    });
+    
+    return isValid;
+}
+
+// Form Submission Handler
+// -----------------------
+document.addEventListener('DOMContentLoaded', function() {
+    const registrationForm = document.getElementById('registrationForm');
+    
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Check required files
+            const profileImage = document.getElementById('profile_image');
+            const paymentProof = document.getElementById('payment_proof');
+            
+            if (!profileImage.files.length) {
+                e.preventDefault();
+                alert('ກະລຸນາອັບໂຫຼດຮູບໂປຣໄຟລ໌');
+                profileImage.focus();
+                return;
+            }
+            
+            if (!paymentProof.files.length) {
+                e.preventDefault();
+                alert('ກະລຸນາອັບໂຫຼດໃບຢັ້ງຢືນການຈ່າຍເງິນ');
+                paymentProof.focus();
+                return;
+            }
+            
+            // Validate form first
+            if (!validateForm('registrationForm')) {
+                e.preventDefault();
+                alert('ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="animate-spin inline-block">⏳</span> ກຳລັງປະມວນຜົນ...';
+            
+            // Re-enable button after 30 seconds as safety measure
+            setTimeout(function() {
+                if (submitBtn.disabled) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '🚀 ສົ່ງການລົງທະບຽນ';
+                }
+            }, 30000);
+        });
+    }
 });
 
-// Reset button if page is refreshed/reloaded
+// Page Load Handler
+// -----------------
 window.addEventListener('load', function() {
     const submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
