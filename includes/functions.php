@@ -4,12 +4,59 @@
  */
 
 /**
+ * Ensure session is properly initialized
+ */
+function ensureSessionStarted() {
+    if (session_status() === PHP_SESSION_NONE) {
+        // Configure session settings if not already configured
+        if (!ini_get('session.name') || ini_get('session.name') === 'PHPSESSID') {
+            session_name(SESSION_NAME);
+        }
+        
+        session_start();
+        
+        // Log session initialization
+        if (defined('DEBUG_CSRF') && DEBUG_CSRF) {
+            error_log("Session initialized: " . session_id());
+        }
+    }
+    
+    // Regenerate session ID periodically for security (but preserve CSRF token)
+    if (!isset($_SESSION['session_regenerated'])) {
+        $oldToken = $_SESSION[CSRF_TOKEN_NAME] ?? null;
+        session_regenerate_id(true);
+        $_SESSION['session_regenerated'] = time();
+        
+        // Restore CSRF token after regeneration
+        if ($oldToken) {
+            $_SESSION[CSRF_TOKEN_NAME] = $oldToken;
+        }
+        
+        if (defined('DEBUG_CSRF') && DEBUG_CSRF) {
+            error_log("Session ID regenerated: " . session_id());
+        }
+    }
+    
+    return session_id();
+}
+
+/**
  * Generate CSRF Token
  */
 function generateCSRFToken() {
+    // Ensure session is started
+    ensureSessionStarted();
+    
+    // Generate token if not exists
     if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
         $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
+        
+        // Log token generation for debugging (only in development)
+        if (defined('DEBUG_CSRF') && DEBUG_CSRF) {
+            error_log("CSRF Debug: Generated new token for session " . session_id());
+        }
     }
+    
     return $_SESSION[CSRF_TOKEN_NAME];
 }
 
@@ -17,7 +64,63 @@ function generateCSRFToken() {
  * Verify CSRF Token
  */
 function verifyCSRFToken($token) {
-    return isset($_SESSION[CSRF_TOKEN_NAME]) && hash_equals($_SESSION[CSRF_TOKEN_NAME], $token);
+    // Ensure session is started
+    ensureSessionStarted();
+    
+    // Check if session token exists
+    if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
+        if (defined('DEBUG_CSRF') && DEBUG_CSRF) {
+            error_log("CSRF Debug: No session token found");
+        }
+        return false;
+    }
+    
+    // Check if provided token is empty
+    if (empty($token)) {
+        if (defined('DEBUG_CSRF') && DEBUG_CSRF) {
+            error_log("CSRF Debug: Provided token is empty");
+        }
+        return false;
+    }
+    
+    // Perform secure comparison
+    $result = hash_equals($_SESSION[CSRF_TOKEN_NAME], $token);
+    
+    // Log verification attempt for debugging (only in development)
+    if (defined('DEBUG_CSRF') && DEBUG_CSRF) {
+        error_log("CSRF Debug: Verifying token for session " . session_id());
+        error_log("CSRF Debug: Session token exists: YES");
+        error_log("CSRF Debug: Provided token length: " . strlen($token));
+        error_log("CSRF Debug: Verification result: " . ($result ? 'PASS' : 'FAIL'));
+    }
+    
+    return $result;
+}
+
+/**
+ * Enhanced CSRF Token Verification with Fallback
+ */
+function verifyCSRFTokenWithFallback($token) {
+    // First attempt normal verification
+    if (verifyCSRFToken($token)) {
+        return true;
+    }
+    
+    // Fallback: Check if token was just generated (for same-request scenarios)
+    if (isset($_SESSION[CSRF_TOKEN_NAME]) && !empty($token)) {
+        // Trim whitespace that might have been added
+        $cleanToken = trim($token);
+        if (hash_equals($_SESSION[CSRF_TOKEN_NAME], $cleanToken)) {
+            if (defined('DEBUG_CSRF') && DEBUG_CSRF) {
+                error_log("CSRF Debug: Fallback verification successful (whitespace issue)");
+            }
+            return true;
+        }
+    }
+    
+    // Log final failure (always log CSRF failures for security)
+    error_log("CSRF Error: Token verification failed for session " . session_id());
+    return false;
 }
 
 /**
