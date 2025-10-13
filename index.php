@@ -583,14 +583,17 @@ $pageTitle = defined('APP_NAME') ? 'ໜ້າຫຼັກ - ' . APP_NAME : 'ໜ�
                     $searchError = "ກະລຸນາປ້ອນຂໍ້ມູນທີ່ຕ້ອງການຄົ້ນຫາ";
                 } else {
                     try {
-                        // Search by student_code, first_name, email, or phone
+                        // Search by student_code, first_name, last_name, first_name_en, last_name_en, email, or phone
                         $stmt = $db->query("SELECT * FROM registrations 
                                           WHERE student_code = ? 
                                           OR first_name LIKE ? 
+                                          OR last_name LIKE ?
+                                          OR first_name_en LIKE ?
+                                          OR last_name_en LIKE ?
                                           OR email = ? 
                                           OR phone = ?
                                           LIMIT 10", 
-                                          [$searchQuery, "%$searchQuery%", $searchQuery, $searchQuery]);
+                                          [$searchQuery, "%$searchQuery%", "%$searchQuery%", "%$searchQuery%", "%$searchQuery%", $searchQuery, $searchQuery]);
                         
                         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         
@@ -683,7 +686,8 @@ $pageTitle = defined('APP_NAME') ? 'ໜ້າຫຼັກ - ' . APP_NAME : 'ໜ�
                                 <div class="bg-white rounded-lg p-3 border border-red-200">
                                     <div class="grid grid-cols-2 gap-4 text-sm">
                                         <div><strong>ລະຫັດ:</strong> <?php echo htmlspecialchars($result['student_code']); ?></div>
-                                        <div><strong>ຊື່:</strong> <?php echo htmlspecialchars($result['first_name'] . ' ' . $result['last_name']); ?></div>
+                                        <div><strong>ຊື່ (ລາວ):</strong> <?php echo htmlspecialchars($result['first_name'] . ' ' . $result['last_name']); ?></div>
+                                        <div><strong>ຊື່ (Eng):</strong> <span class="font-mono"><?php echo htmlspecialchars(($result['first_name_en'] ?? '') . ' ' . ($result['last_name_en'] ?? '')); ?></span></div>
                                         <div><strong>ອີເມວ:</strong> <?php echo htmlspecialchars($result['email']); ?></div>
                                         <div><strong>ເບີໂທ:</strong> <?php echo htmlspecialchars($result['phone']); ?></div>
                                     </div>
@@ -715,6 +719,10 @@ $pageTitle = defined('APP_NAME') ? 'ໜ້າຫຼັກ - ' . APP_NAME : 'ໜ�
                             <div class="flex items-center">
                                 <span class="font-semibold text-gray-700 w-32">ຊື່-ນາມສະກຸນ:</span>
                                 <span class="text-gray-900"><?php echo htmlspecialchars($checkResult['first_name'] . ' ' . $checkResult['last_name']); ?></span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="font-semibold text-gray-700 w-32">English Name:</span>
+                                <span class="text-gray-900 font-mono"><?php echo htmlspecialchars(($checkResult['first_name_en'] ?? '') . ' ' . ($checkResult['last_name_en'] ?? '')); ?></span>
                             </div>
                             <div class="flex items-center">
                                 <span class="font-semibold text-gray-700 w-32">ສາຂາວິຊາ:</span>

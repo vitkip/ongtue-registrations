@@ -18,18 +18,31 @@ if ($_POST) {
     // Sanitize and validate input
     $firstName = sanitizeInput($_POST['first_name'] ?? '');
     $lastName = sanitizeInput($_POST['last_name'] ?? '');
+    $firstNameEn = sanitizeInput($_POST['first_name_en'] ?? '');
+    $lastNameEn = sanitizeInput($_POST['last_name_en'] ?? '');
     $major = sanitizeInput($_POST['major'] ?? '');
     $graduationYear = sanitizeInput($_POST['graduation_year'] ?? '');
     $email = sanitizeInput($_POST['email'] ?? '');
     $phone = sanitizeInput($_POST['phone'] ?? '');
     
+    // Handle amount field
+    $amountSelection = $_POST['amount'] ?? '200000';
+    if ($amountSelection === 'custom') {
+        $amount = floatval(str_replace(',', '', $_POST['custom_amount'] ?? 0));
+    } else {
+        $amount = floatval($amountSelection);
+    }
+    
     // Validation
     if (empty($firstName)) $errors[] = 'ກະລຸນາປ້ອນຊື່';
     if (empty($lastName)) $errors[] = 'ກະລຸນາປ້ອນນາມສະກຸນ';
+    if (empty($firstNameEn)) $errors[] = 'ກະລຸນາປ້ອນຊື່ພາສາອັງກິດ';
+    if (empty($lastNameEn)) $errors[] = 'ກະລຸນາປ້ອນນາມສະກຸນພາສາອັງກິດ';
     if (empty($major)) $errors[] = 'ກະລຸນາເລືອກສາຂາວິຊາ';
     if (empty($graduationYear)) $errors[] = 'ກະລຸນາເລືອກປີສຳເລັດການສຶກສາ';
     if (empty($email)) $errors[] = 'ກະລຸນາປ້ອນອີເມວ';
     if (empty($phone)) $errors[] = 'ກະລຸນາປ້ອນເບີໂທລະສັບ';
+    if ($amount <= 0) $errors[] = 'ກະລຸນາລະບຸຈຳນວນເງິນທີ່ຖືກຕ້ອງ';
     
     if (!empty($email) && !validateEmail($email)) {
         $errors[] = 'ອີເມວບໍ່ຖືກຕ້ອງ';
@@ -95,19 +108,22 @@ if ($_POST) {
             } while ($stmt->fetch());
             
             // Insert registration
-            $sql = "INSERT INTO registrations (student_code, first_name, last_name, major, graduation_year, email, phone, profile_image, payment_proof, status) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO registrations (student_code, first_name, last_name, first_name_en, last_name_en, major, graduation_year, email, phone, profile_image, payment_proof, amount, status) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $db->query($sql, [
                 $studentCode,
                 $firstName,
-                $lastName, 
+                $lastName,
+                $firstNameEn,
+                $lastNameEn,
                 $major,
                 $graduationYear,
                 $email,
                 $phone,
                 $profileImage,
                 $paymentProof,
+                $amount,
                 STATUS_PENDING
             ]);
             
@@ -270,7 +286,7 @@ include 'includes/header.php';
                         </div>
                         <div class="flex items-center">
                             <span class="text-amber-600 mr-2">✅</span>
-                            <span class="text-amber-800">ຮູບຖ່າຍ 4x6 ຈຳນວນ 2 ຮູບ</span>
+                            <span class="text-amber-800">ຮູບຖ່າຍ 3x4 ຈຳນວນ 2 ຮູບ</span>
                         </div>
                     </div>
                     <div class="space-y-2">
@@ -353,19 +369,41 @@ include 'includes/header.php';
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                ຊື່ <span class="text-red-500">*</span>
+                                ຊື່ (ພາສາລາວ) <span class="text-red-500">*</span>
                             </label>
                             <input type="text" id="first_name" name="first_name" required
                                    value="<?php echo htmlspecialchars($_POST['first_name'] ?? ''); ?>"
+                                   placeholder="ຊື່ຂອງທ່ານເປັນພາສາລາວ"
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-lao-red focus:border-lao-red">
                         </div>
                         
                         <div>
                             <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                ນາມສະກຸນ <span class="text-red-500">*</span>
+                                ນາມສະກຸນ (ພາສາລາວ) <span class="text-red-500">*</span>
                             </label>
                             <input type="text" id="last_name" name="last_name" required
                                    value="<?php echo htmlspecialchars($_POST['last_name'] ?? ''); ?>"
+                                   placeholder="ນາມສະກຸນຂອງທ່ານເປັນພາສາລາວ"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-lao-red focus:border-lao-red">
+                        </div>
+                        
+                        <div>
+                            <label for="first_name_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                ຊື່ (ພາສາອັງກິດ) <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="first_name_en" name="first_name_en" required
+                                   value="<?php echo htmlspecialchars($_POST['first_name_en'] ?? ''); ?>"
+                                   placeholder="Your first name in English"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-lao-red focus:border-lao-red">
+                        </div>
+                        
+                        <div>
+                            <label for="last_name_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                ນາມສະກຸນ (ພາສາອັງກິດ) <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="last_name_en" name="last_name_en" required
+                                   value="<?php echo htmlspecialchars($_POST['last_name_en'] ?? ''); ?>"
+                                   placeholder="Your last name in English"
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-lao-red focus:border-lao-red">
                         </div>
                     </div>
@@ -507,82 +545,30 @@ include 'includes/header.php';
                                                             <label class="block text-xs font-semibold text-green-600 uppercase tracking-wide mb-2">
                                                                 💰 ຄ່າລົງທະບຽນ
                                                             </label>
-                                                            <div class="flex items-baseline space-x-2">
-                                                                <p class="text-green-800 font-black text-2xl sm:text-3xl">200,000</p>
-                                                                <p class="text-green-600 font-medium text-lg">ກີບ</p>
-                                                            </div>
-                                                            <p class="text-green-600 text-xs mt-1 font-medium">Two Hundred Thousand Kip</p>
-                                                        </div>
-                                                        
-                                                        <!-- QR Code Section (Mobile Optimized) -->
-                                                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
-                                                            <div class="text-center">
-                                                                <h5 class="text-sm font-bold text-blue-900 mb-3 flex items-center justify-center">
-                                                                    <span class="bg-blue-600 text-white p-1 rounded-full mr-2">📱</span>
-                                                                    ສະແກນ QR Code ເພື່ອຈ່າຍດ່ວນ
-                                                                </h5>
-                                                                
-                                                                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                                                    <!-- QR Code -->
-                                                                    <div class="bg-white border-2 border-blue-300 rounded-xl p-3 shadow-sm">
-                                                                        <div class="w-32 h-32 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                                                                            <img src="./image/qrcode.png" alt="BCEL ONE QR Code" 
-                                                                                 class="w-full h-full object-contain transition-opacity duration-300"
-                                                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" 
-                                                                                 onload="this.style.opacity='1';" style="opacity:0;" />
-                                                                            <div class="w-full h-full flex items-center justify-center text-center bg-gray-50" style="display: none;">
-                                                                                <div>
-                                                                                    <div class="text-3xl mb-2">📱</div>
-                                                                                    <p class="text-xs text-gray-600">QR Code<br>ກຳລັງໂຫຼດ...</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                    <!-- Instructions -->
-                                                                    <div class="text-left space-y-2">
-                                                                        <div class="flex items-center text-blue-700 text-sm">
-                                                                            <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">1</span>
-                                                                            <span>ເປີດແອັບ BCEL ONE</span>
-                                                                        </div>
-                                                                        <div class="flex items-center text-blue-700 text-sm">
-                                                                            <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">2</span>
-                                                                            <span>ສະແກນ QR Code</span>
-                                                                        </div>
-                                                                        <div class="flex items-center text-blue-700 text-sm">
-                                                                            <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">3</span>
-                                                                            <span>ຢືນຢັນການຈ່າຍ</span>
-                                                                        </div>
-                                                                    </div>
+                                                            <div class="space-y-3">
+                                                                <div class="flex items-center space-x-2">
+                                                                    <input type="radio" id="amount_200k" name="amount" value="200000" 
+                                                                           class="w-4 h-4 text-green-600 focus:ring-green-500 border-green-300" 
+                                                                           <?php echo (!isset($_POST['amount']) || $_POST['amount'] === '200000') ? 'checked' : ''; ?>>
+                                                                    <label for="amount_200k" class="flex items-baseline space-x-2 cursor-pointer">
+                                                                        <span class="text-green-800 font-black text-xl">200,000</span>
+                                                                        <span class="text-green-600 font-medium">ກີບ (ປົກກະຕິ)</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="flex items-center space-x-2">
+                                                                    <input type="radio" id="amount_custom" name="amount" value="custom" 
+                                                                           class="w-4 h-4 text-green-600 focus:ring-green-500 border-green-300"
+                                                                           <?php echo (isset($_POST['amount']) && $_POST['amount'] === 'custom') ? 'checked' : ''; ?>>
+                                                                    <label for="amount_custom" class="text-green-600 font-medium cursor-pointer">ລະບຸຈຳນວນເອງ:</label>
+                                                                </div>
+                                                                <div id="custom_amount_input" class="ml-6 <?php echo (isset($_POST['amount']) && $_POST['amount'] === 'custom') ? '' : 'hidden'; ?>">
+                                                                    <input type="number" id="custom_amount" name="custom_amount" 
+                                                                           class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                                                           placeholder="ກະລຸນາລະບຸຈຳນວນເງິນ (ກີບ)" min="1"
+                                                                           value="<?php echo htmlspecialchars($_POST['custom_amount'] ?? ''); ?>">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        
-                                                        <!-- Payment Methods -->
-                                                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                                                            <h5 class="text-sm font-bold text-amber-900 mb-3 flex items-center">
-                                                                <span class="bg-amber-600 text-white p-1 rounded-full mr-2">💡</span>
-                                                                ວິທີການຈ່າຍເງິນ
-                                                            </h5>
-                                                            
-                                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                                                <div class="bg-white rounded-lg p-3 border border-amber-200">
-                                                                    <div class="flex items-center mb-2">
-                                                                        <span class="text-lg mr-2">📱</span>
-                                                                        <span class="font-semibold text-amber-900 text-sm">ແອັບ BCEL ONE</span>
-                                                                    </div>
-                                                                    <p class="text-amber-700 text-xs">ສະແກນ QR ຫຼື ໃຊ້ເລກບັນຊີ</p>
-                                                                </div>
-                                                                
-                                                                <div class="bg-white rounded-lg p-3 border border-amber-200">
-                                                                    <div class="flex items-center mb-2">
-                                                                        <span class="text-lg mr-2">🏪</span>
-                                                                        <span class="font-semibold text-amber-900 text-sm">ຈຸດບໍລິການ BCEL</span>
-                                                                    </div>
-                                                                    <p class="text-amber-700 text-xs">ທຸກສາຂາທົ່ວປະເທດ</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        </div>                                                      
                                                     </div>
                                                 </div>
 
@@ -843,6 +829,38 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitBtn.innerHTML = '🚀 ສົ່ງການລົງທະບຽນ';
                 }
             }, 30000);
+        });
+    }
+});
+
+// Amount Selection Handler
+// ------------------------
+document.addEventListener('DOMContentLoaded', function() {
+    const amountRadios = document.querySelectorAll('input[name="amount"]');
+    const customAmountInput = document.getElementById('custom_amount_input');
+    const customAmountField = document.getElementById('custom_amount');
+    
+    amountRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customAmountInput.classList.remove('hidden');
+                customAmountField.required = true;
+                customAmountField.focus();
+            } else {
+                customAmountInput.classList.add('hidden');
+                customAmountField.required = false;
+                customAmountField.value = '';
+            }
+        });
+    });
+    
+    // Format number input with commas
+    if (customAmountField) {
+        customAmountField.addEventListener('input', function() {
+            let value = this.value.replace(/,/g, '');
+            if (value && !isNaN(value)) {
+                this.value = parseInt(value).toLocaleString();
+            }
         });
     }
 });

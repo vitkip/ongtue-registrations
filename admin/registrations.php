@@ -139,6 +139,7 @@ if ($_POST && hasRole(ROLE_STAFF)) {
 // Get filter parameters
 $statusFilter = $_GET['status'] ?? '';
 $searchQuery = $_GET['search'] ?? '';
+$yearFilter = $_GET['year'] ?? '';
 $page = max(1, (int)($_GET['page'] ?? 1));
 $limit = RECORDS_PER_PAGE;
 $offset = ($page - 1) * $limit;
@@ -153,9 +154,14 @@ if ($statusFilter && in_array($statusFilter, [STATUS_PENDING, STATUS_APPROVED, S
 }
 
 if ($searchQuery) {
-    $whereConditions[] = "(first_name LIKE ? OR last_name LIKE ? OR student_code LIKE ? OR email LIKE ? OR major LIKE ?)";
+    $whereConditions[] = "(first_name LIKE ? OR last_name LIKE ? OR first_name_en LIKE ? OR last_name_en LIKE ? OR student_code LIKE ? OR email LIKE ? OR major LIKE ?)";
     $searchParam = "%$searchQuery%";
-    $params = array_merge($params, [$searchParam, $searchParam, $searchParam, $searchParam, $searchParam]);
+    $params = array_merge($params, [$searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam]);
+}
+
+if ($yearFilter) {
+    $whereConditions[] = "graduation_year = ?";
+    $params[] = $yearFilter;
 }
 
 $whereClause = !empty($whereConditions) ? "WHERE " . implode(" AND ", $whereConditions) : "";
@@ -212,7 +218,7 @@ include '../includes/header.php';
                     </p>
                 </div>
                 <div class="mt-4 flex md:mt-0 md:ml-4 space-x-3">
-                    <a href="export_excel_final.php?<?php echo http_build_query(['status' => $statusFilter, 'search' => $searchQuery]); ?>" 
+                    <a href="export_excel_final.php?<?php echo http_build_query(['status' => $statusFilter, 'search' => $searchQuery, 'year' => $yearFilter]); ?>" 
                        class="inline-flex items-center px-4 py-2 border border-green-600 rounded-md shadow-sm text-sm font-medium text-green-600 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                         📊 ສົ່ງອອກ Excel
                     </a>
@@ -338,6 +344,34 @@ include '../includes/header.php';
                     </select>
                 </div>
                 
+                <div class="flex-none mb-4 md:mb-0">
+                    <label for="year" class="block text-sm font-medium text-gray-700 mb-1">ປີສຳເລັດການສຶກສາ</label>
+                    <select id="year" name="year" 
+                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lao-red focus:border-lao-red sm:text-sm">
+                        <option value="">ທັງໝົດ</option>
+                        <?php
+                        // Get available graduation years from database
+                        try {
+                            $yearQuery = "SELECT DISTINCT graduation_year FROM registrations ORDER BY graduation_year DESC";
+                            $yearStmt = $db->query($yearQuery);
+                            $years = $yearStmt->fetchAll();
+                            
+                            foreach ($years as $year) {
+                                $selected = $yearFilter === $year['graduation_year'] ? 'selected' : '';
+                                echo "<option value=\"{$year['graduation_year']}\" {$selected}>{$year['graduation_year']}</option>";
+                            }
+                        } catch (Exception $e) {
+                            // Fallback to default years if query fails
+                            $currentYear = date('Y');
+                            for ($i = $currentYear; $i >= $currentYear - 10; $i--) {
+                                $selected = $yearFilter === (string)$i ? 'selected' : '';
+                                echo "<option value=\"{$i}\" {$selected}>{$i}</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                
                 <div class="flex-none">
                     <label class="block text-sm font-medium text-gray-700 mb-1">&nbsp;</label>
                     <button type="submit" 
@@ -439,7 +473,10 @@ include '../includes/header.php';
                                         <div class="text-sm font-medium text-gray-900">
                                             <?php echo htmlspecialchars($registration['first_name'] . ' ' . $registration['last_name']); ?>
                                         </div>
-                                        <div class="text-sm text-gray-500">
+                                        <div class="text-sm text-gray-600 font-mono">
+                                            <?php echo htmlspecialchars(($registration['first_name_en'] ?? '') . ' ' . ($registration['last_name_en'] ?? '')); ?>
+                                        </div>
+                                        <div class="text-xs text-gray-500">
                                             <?php echo htmlspecialchars($registration['student_code']); ?>
                                         </div>
                                     </div>
@@ -479,10 +516,10 @@ include '../includes/header.php';
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-2">
                                     <!-- View Button -->
-                                    <button type="button" onclick="viewRegistration(<?php echo $registration['id']; ?>)"
-                                            class="text-blue-600 hover:text-blue-900 p-1 rounded" title="ເບິ່ງລາຍລະອຽດ">
+                                    <a href="view_registration.php?id=<?php echo $registration['id']; ?>"
+                                       class="text-blue-600 hover:text-blue-900 p-1 rounded" title="ເບິ່ງລາຍລະອຽດ">
                                         👁️
-                                    </button>
+                                    </a>
                                     
                                     <?php if (hasRole(ROLE_STAFF)): ?>
                                     <!-- Edit Button -->
@@ -555,13 +592,13 @@ include '../includes/header.php';
             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
                 <div class="flex-1 flex justify-between sm:hidden">
                     <?php if ($page > 1): ?>
-                    <a href="?page=<?php echo $page - 1; ?>&status=<?php echo urlencode($statusFilter); ?>&search=<?php echo urlencode($searchQuery); ?>" 
+                    <a href="?page=<?php echo $page - 1; ?>&status=<?php echo urlencode($statusFilter); ?>&search=<?php echo urlencode($searchQuery); ?>&year=<?php echo urlencode($yearFilter); ?>" 
                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                         ກ່ອນໜ້າ
                     </a>
                     <?php endif; ?>
                     <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?php echo $page + 1; ?>&status=<?php echo urlencode($statusFilter); ?>&search=<?php echo urlencode($searchQuery); ?>" 
+                    <a href="?page=<?php echo $page + 1; ?>&status=<?php echo urlencode($statusFilter); ?>&search=<?php echo urlencode($searchQuery); ?>&year=<?php echo urlencode($yearFilter); ?>" 
                        class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                         ຕໍ່ໄປ
                     </a>
@@ -578,7 +615,7 @@ include '../includes/header.php';
                     <div>
                         <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <a href="?page=<?php echo $i; ?>&status=<?php echo urlencode($statusFilter); ?>&search=<?php echo urlencode($searchQuery); ?>" 
+                            <a href="?page=<?php echo $i; ?>&status=<?php echo urlencode($statusFilter); ?>&search=<?php echo urlencode($searchQuery); ?>&year=<?php echo urlencode($yearFilter); ?>" 
                                class="<?php echo $i === $page ? 'bg-lao-red text-white' : 'bg-white text-gray-500 hover:bg-gray-50'; ?> relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium">
                                 <?php echo $i; ?>
                             </a>
@@ -600,48 +637,7 @@ include '../includes/header.php';
     </div>
 </div>
 
-<!-- Registration Details Modal -->
-<div id="registrationModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
-            <div id="modalContent">
-                <!-- Content will be loaded here -->
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
-function viewRegistration(id) {
-    // Show loading
-    document.getElementById('modalContent').innerHTML = '<div class="p-6 text-center">⏳ ກຳລັງໂຫຼດ...</div>';
-    document.getElementById('registrationModal').classList.remove('hidden');
-    
-    // Load registration details via AJAX
-    fetch('view_registration.php?id=' + id)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('modalContent').innerHTML = html;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('modalContent').innerHTML = '<div class="p-6 text-center text-red-600">❌ ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ</div>';
-        });
-}
-
-function closeModal() {
-    document.getElementById('registrationModal').classList.add('hidden');
-}
-
-// Close modal on Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeModal();
-    }
-});
-
 // Bulk Actions Management
 document.addEventListener('DOMContentLoaded', function() {
     const selectAllCheckbox = document.getElementById('selectAll');

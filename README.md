@@ -1,7 +1,10 @@
-# ລະບົບລົງທະບຽນຮັບໃບປະກາດນິຍະບັດ
+# ລະບົບລົງທະບຽນຮັບໃບຢັ້ງຢືນ
 ## Certificate Registration System
 
-ລະບົບ Web Application ສຳລັບລົງທະບຽນຮັບໃບປະກາດນິຍະບັດ ທີ່ພັດທະນາດ້ວຍ PHP (PDO), MySQL, Tailwind CSS ແລະ Google Fonts Phetsarath
+ລະບົບ Web Application ສຳລັບລົງທະບຽນຮັບໃບຢັ້ງຢືນການສຳເລັດການສຶກສາ ທີ່ພັດທະນາດ້ວຍ PHP (PDO), MySQL, Tailwind CSS ແລະ Google Fonts Phetsarath
+
+**ວັນທີອັບເດດຫຼ້າສຸດ**: 13 ຕຸລາ 2025  
+**ເວີຊັນ**: 2.0.0
 
 ---
 
@@ -19,9 +22,52 @@
 - 📋 **ຈັດການລົງທະບຽນ CRUD**: ເບິ່ງ, ແກ້ໄຂ, ອະນຸມັດ, ປະຕິເສດ, ລົບ
 - ☑️ **Bulk Operations**: ດຳເນິນການກັບຫຼາຍລາຍການພ້ອມກັນ
 - 🔍 **ຄົ້ນຫາ & ກັ່ນຕອງ**: ຄົ້ນຫາແລະກັ່ນຕອງຂໍ້ມູນ
-- 👁️ **ເບິ່ງລາຍລະອຽດ**: Modal ສະແດງຂໍ້ມູນຄົບຖ້ວນ
+- 👁️ **ເບິ່ງລາຍລະອຽດ**: ສະແດງຂໍ້ມູນຄົບຖ້ວນພ້ອມ UI ທີ່ສວຍງາມ
 - ✏️ **ແກ້ໄຂຂໍ້ມູນ**: ແກ້ໄຂການລົງທະບຽນແບບສົມບູນ
 - 📄 **ການຈັດການໄຟລ໌**: ອັບໂຫຼດແລະຈັດການໄຟລ໌
+- 📊 **ສົ່ງອອກ Excel**: ສົ່ງອອກຂໍ້ມູນພ້ອມສະຫຼຸບຍອດເງິນ
+- 💰 **ລະບົບຈັດການຈຳນວນເງິນ**: ບັນທຶກແລະຄຳນວນຈຳນວນເງິນຕົວຈິງ
+
+---
+
+## 📅 ປະຫວັດການອັບເດດ
+
+### 🆕 Version 2.0.0 (13 ຕຸລາ 2025)
+
+#### ✨ ຄຸນສົມບັດໃໝ່ທີ່ສຳຄັນ:
+
+**1. 🌏 ລະບົບຊື່ສອງພາສາ (Bilingual Names)**
+- ເພີ່ມຟິວຊື່-ນາມສະກຸນພາສາອັງກິດ (`first_name_en`, `last_name_en`)
+- ຮອງຮັບການຄົ້ນຫາດ້ວຍທັງສອງພາສາ
+- ແສດງຜົນທັງພາສາລາວແລະອັງກິດໃນທຸກໜ້າ
+- ຟິວພາສາອັງກິດເປັນ required field
+
+**2. 💰 ລະບົບຈັດການຈຳນວນເງິນທີ່ສົມບູນ**
+- ບັນທຶກຈຳນວນເງິນຕົວຈິງຈາກແຕ່ລະການລົງທະບຽນ
+- ແກ້ໄຂຈຳນວນເງິນໄດ້ໃນໜ້າ Edit ດ້ວຍ Real-time formatting
+- Input ຈຳນວນເງິນມີການຈັດຮູບແບບອັດຕະໂນມັດ (100,000 ກີບ)
+- Validation ຈຳນວນເງິນທີ່ດີຂຶ້ນ
+- Auto-format ເວລາພິມຕົວເລກ
+
+**3. 📊 ລະບົບສະຫຼຸບຍອດເງິນໃນ Excel Export**
+- ສະແດງຈຳນວນເງິນເຕັມຈຳນວນ (ບໍ່ມີການຕັດທອນ)
+- ສະຫຼຸບຍອດເງິນທັງໝົດອັດຕະໂນມັດ
+- ແຍກຍອດເງິນຕາມສະຖານະ:
+  - ✅ ຈຳນວນເງິນທີ່ອະນຸມັດແລ້ວ
+  - ⏳ ຈຳນວນເງິນທີ່ລໍຖ້າການອະນຸມັດ
+  - ❌ ລາຍການທີ່ປະຕິເສດ
+- ສະຖິຕິເປີເຊັນ:
+  - ອັດຕາການອະນຸມັດ/ປະຕິເສດ/ລໍຖ້າ
+  - ສັດສ່ວນຈຳນວນເງິນແຕ່ລະສະຖານະ
+- ຈັດຮູບແບບສີສັນທີ່ສວຍງາມໃນ Excel
+
+**4. 🎨 ປັບປຸງ UI/UX**
+- ໜ້າ Edit Registration ດ້ວຍ CSS ແຍກໄຟລ໌
+- ໜ້າ View Registration ສະແດງຜົນແບບສວຍງາມ
+- Info Cards ດ້ວຍ hover effects
+- Amount Display Badge ແບບ real-time
+- Status Badge ທີ່ສະແດງຜົນຊັດເຈນ
+- File Preview ແບບ modern
 
 ---
 
@@ -62,16 +108,25 @@
 
 ### 3. ສ້າງຖານຂໍ້ມູນ
 ```sql
--- ເປີດ phpMyAdmin: http://localhost/phpmyadmin
--- ຫຼື ໃຊ້ຄຳສັ່ງ MySQL:
+-- ວິທີທີ 1: ໃຊ້ phpMyAdmin
+-- 1. ເປີດ: http://localhost/phpmyadmin
+-- 2. ກົດ "Import"
+-- 3. ເລືອກໄຟລ໌: config/database.sql
+-- 4. ກົດ "Go"
 
--- ສ້າງຖານຂໍ້ມູນ
-CREATE DATABASE cert_system
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_general_ci;
+-- ວິທີທີ 2: ໃຊ້ MySQL Command Line
+USE cert_system;
+SOURCE /Applications/XAMPP/xamppfiles/htdocs/registrations/config/database.sql;
 
--- Import ໄຟລ໌ SQL
--- ໃຊ້ໄຟລ໌: config/database.sql
+-- ວິທີທີ 3: ໃຊ້ Terminal
+mysql -u root -p < config/database.sql
+```
+
+**ໝາຍເຫດສຳຄັນ:**
+- ✅ ໄຟລ໌ `database.sql` ລວມທຸກຢ່າງແລ້ວ (v2.0)
+- ✅ ບໍ່ຕ້ອງ run script ແຍກອີກ
+- ✅ ມີຂໍ້ມູນທົດສອບພ້ອມໃຊ້
+- ✅ Admin account: admin/admin123
 ```
 
 ### 4. ກຳນົດຄ່າ Configuration
@@ -123,8 +178,13 @@ registrations/
 │   ├── logout.php           # ອອກຈາກລະບົບ
 │   ├── dashboard.php        # ໜ້າຫຼັກ Admin
 │   ├── registrations.php    # ຈັດການລົງທະບຽນ (CRUD + Bulk Operations)
-│   ├── view_registration.php # ເບິ່ງລາຍລະອຽດ
-│   └── edit_registration.php # ແກ້ໄຂການລົງທະບຽນ
+│   ├── view_registration.php # ເບິ່ງລາຍລະອຽດ (UI ສວຍງາມ)
+│   ├── edit_registration.php # ແກ້ໄຂການລົງທະບຽນ (ມີ real-time amount formatting)
+│   ├── export_excel_final.php # ສົ່ງອອກ Excel ພ້ອມສະຫຼຸບຍອດເງິນ
+│   ├── users.php            # ຈັດການຜູ້ໃຊ້
+│   └── css/
+│       ├── edit_registration.css  # CSS ສຳລັບໜ້າ Edit
+│       └── view_registration.css  # CSS ສຳລັບໜ້າ View
 ├── uploads/
 │   ├── profiles/            # ຮູບໂປຣໄຟລ໌
 │   └── payments/            # ໃບຢັ້ງຢືນການຈ່າຍເງິນ
@@ -144,15 +204,20 @@ CREATE TABLE registrations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     student_code VARCHAR(50) NOT NULL UNIQUE,
     first_name VARCHAR(100) NOT NULL,
+    first_name_en VARCHAR(100) NULL,           -- ເພີ່ມໃໝ່ v2.0
     last_name VARCHAR(100) NOT NULL,
+    last_name_en VARCHAR(100) NULL,            -- ເພີ່ມໃໝ່ v2.0
     major VARCHAR(100) NOT NULL,
     graduation_year YEAR NOT NULL,
     email VARCHAR(150) NOT NULL,
     phone VARCHAR(20) NOT NULL,
+    amount DECIMAL(10,2) DEFAULT 200000.00,    -- ເພີ່ມໃໝ່ v2.0
     profile_image VARCHAR(255),
     payment_proof VARCHAR(255),
     status ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_first_name_en (first_name_en),   -- ເພີ່ມໃໝ່ v2.0
+    INDEX idx_last_name_en (last_name_en)      -- ເພີ່ມໃໝ່ v2.0
 );
 ```
 
@@ -174,7 +239,12 @@ CREATE TABLE users (
 ### ສຳລັບນິສິດ:
 1. ເຂົ້າເວັບໄຊທ໌: `http://localhost/registrations/`
 2. ກົດ "ລົງທະບຽນດຽວນີ້"
-3. ປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ
+3. ປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ:
+   - ຊື່-ນາມສະກຸນ (ພາສາລາວ) *
+   - ຊື່-ນາມສະກຸນ (ພາສາອັງກິດ) * ← **ເພີ່ມໃໝ່**
+   - ລະຫັດນິສິດ, ສາຂາວິຊາ, ປີຈົບ
+   - ອີເມວ, ເບີໂທລະສັບ
+   - ຈຳນວນເງິນຄ່າລົງທະບຽນ ← **ເພີ່ມໃໝ່**
 4. ອັບໂຫຼດຮູບໂປຣໄຟລ໌ແລະໃບຢັ້ງຢືນການຈ່າຍເງິນ
 5. ກົດ "ສົ່ງການລົງທະບຽນ"
 6. ລໍຖ້າການອະນຸມັດຈາກເຈົ້າໜ້າທີ່
@@ -185,17 +255,192 @@ CREATE TABLE users (
 3. ເບິ່ງ Dashboard ແລະສະຖິຕິ Real-time
 4. ໄປ "ຈັດການລົງທະບຽນ"
 5. **ການດຳເນີນງານ CRUD**:
-   - 👁️ ເບິ່ງລາຍລະອຽດ (View)
-   - ✏️ ແກ້ໄຂຂໍ້ມູນ (Edit)
+   - 👁️ ເບິ່ງລາຍລະອຽດ (View) - UI ສວຍງາມດ້ວຍ cards
+   - ✏️ ແກ້ໄຂຂໍ້ມູນ (Edit) - ມີ real-time amount formatting
    - ✅ ອະນຸມັດ (Approve)
    - ❌ ປະຕິເສດ (Reject)
    - 🗑️ ລົບ (Delete)
 6. **Bulk Operations**: ເລືອກຫຼາຍລາຍການແລະດຳເນີນການພ້ອມກັນ
-7. **ຄົ້ນຫາ & ກັ່ນຕອງ**: ຄົ້ນຫາຕາມຊື່, ສະຖານະ, ສາຂາວິຊາ
+7. **ຄົ້ນຫາ & ກັ່ນຕອງ**: ຄົ້ນຫາຕາມຊື່ທັງສອງພາສາ, ສະຖານະ, ສາຂາວິຊາ
+8. **ສົ່ງອອກ Excel**: ກົດປຸ່ມ "📊 ສົ່ງອອກ Excel" ເພື່ອດາວໂຫຼດຂໍ້ມູນພ້ອມສະຫຼຸບຍອດເງິນ
 
 ---
 
-## � ຄຸນສົມບັດພິເສດ
+## 💰 ລະບົບຈັດການຈຳນວນເງິນ
+
+### ຄຸນສົມບັດ:
+1. **ບັນທຶກຈຳນວນເງິນ**: ແຕ່ລະການລົງທະບຽນມີຈຳນວນເງິນແຍກ
+2. **Real-time Formatting**: ພິມຕົວເລກແລ້ວຈັດຮູບແບບອັດຕະໂນມັດ
+   - ພິມ: `100000` → ສະແດງ: `100,000`
+   - Live Preview: แสดง badge จຳນວນເງິນ
+3. **Smart Input**:
+   - Auto-format ດ້ວຍ comma
+   - Cursor position management
+   - Paste support
+   - Validation feedback (ສີເຂົ້າ/ເຫຼືອງ/ແດງ)
+4. **ການແກ້ໄຂ**: ແກ້ໄຂຈຳນວນເງິນໄດ້ໃນໜ້າ Edit
+
+### ຕົວຢ່າງຂໍ້ມູນຈາກຖານຂໍ້ມູນປັດຈຸບັນ:
+```
+ID | Amount (LAK)
+---|-------------
+26 | 100,000
+27 | 200,000
+28 | 500,000
+29 | 500,000
+30 | 400,000
+31 | 300,000
+---+-------------
+ລວມ: 2,000,000 LAK
+```
+
+---
+
+## 📊 ລະບົບສົ່ງອອກ Excel ພ້ອມສະຫຼຸບຍອດ
+
+### ຄຸນສົມບັດການສົ່ງອອກ:
+
+**1. ຂໍ້ມູນລາຍການ:**
+- ລະຫັດນິສິດ
+- ຊື່-ນາມສະກຸນ (ລາວ)
+- ຊື່-ນາມສະກຸນ (English) ← **ເພີ່ມໃໝ່**
+- ສາຂາວິຊາ, ປີຈົບ
+- ອີເມວ, ເບີໂທ
+- ສະຖານະ
+- ວັນທີ່ລົງທະບຽນ
+- ຈຳນວນເງິນ (ກີບ) ← **ປັບປຸງໃໝ່**
+
+**2. ສະຫຼຸບຍອດເງິນ:**
+```
+┌─────────────────────────────────────────┐
+│        ສະຫຼຸບຈຳນວນເງິນ                │
+├─────────────────────────────────────────┤
+│ ຈຳນວນທັງໝົດ (6 ລາຍການ)              │
+│   → ລວມເງິນທັງໝົດ: 2,000,000 ກີບ      │
+├─────────────────────────────────────────┤
+│ ✅ ອະນຸມັດແລ້ວ (3 ລາຍການ)           │
+│   → ເງິນທີ່ອະນຸມັດແລ້ວ: 1,100,000 ກີບ │
+├─────────────────────────────────────────┤
+│ ⏳ ລໍຖ້າການອະນຸມັດ (2 ລາຍການ)       │
+│   → ເງິນທີ່ລໍຖ້າອະນຸມັດ: 900,000 ກີບ  │
+├─────────────────────────────────────────┤
+│ ❌ ປະຕິເສດ (1 ລາຍການ)              │
+│   → ບໍ່ມີການຊຳລະເງິນ: 0 ກີບ         │
+└─────────────────────────────────────────┘
+```
+
+**3. ສະຖິຕິເປີເຊັນ:**
+```
+┌─────────────────────────────────────────┐
+│         ສັດສ່ວນເປີເຊັນ                 │
+├─────────────────────────────────────────┤
+│ ✅ ອັດຕາການອະນຸມັດ: 50.0%            │
+│   → ສັດສ່ວນເງິນທີ່ອະນຸມັດ: 55.0%     │
+├─────────────────────────────────────────┤
+│ ⏳ ອັດຕາລໍຖ້າອະນຸມັດ: 33.3%          │
+│   → ສັດສ່ວນເງິນທີ່ລໍຖ້າ: 45.0%       │
+├─────────────────────────────────────────┤
+│ ❌ ອັດຕາການປະຕິເສດ: 16.7%          │
+└─────────────────────────────────────────┘
+```
+
+**4. ການຈັດຮູບແບບ:**
+- 🔵 Header: ສີນ້ຳເງິນ (#4472C4)
+- 💙 ຍອດລວມ: ສີຟ້າ (#E7F3FF) + ສີສົ້ມ (#FFE6CC)
+- 💚 ອະນຸມັດ: ສີຂຽວ (#E8F5E8) + (#D4EDDA)
+- 💛 ລໍຖ້າ: ສີເຫຼືອງ (#FFF3CD) + (#FCF8E3)
+- ❤️ ປະຕິເສດ: ສີແດງ (#F8D7DA) + (#F5C6CB)
+
+**5. ການແກ້ໄຂບັນຫາການສະແດງຜົນ:**
+- ໃຊ້ `number_format($amount, 0, '', '')` ເພື່ອແສດງຕົວເລກເຕັມ
+- ເພີ່ມ `style="mso-number-format:\@;"` ສຳລັບ Excel
+- ຈຳນວນເງິນສະແດງເປັນ: 100000, 200000, 500000
+- Excel ສາມາດນຳໄປຄຳນວນໄດ້
+
+---
+
+## 🌏 ລະບົບຊື່ສອງພາສາ (Bilingual Names)
+
+### ຄຸນສົມບັດ:
+1. **ຊື່-ນາມສະກຸນພາສາລາວ** (`first_name`, `last_name`)
+   - ຟິວເດີມ ສຳລັບການສະແດງຜົນແລະເອກະສານທ້ອງຖິ່ນ
+   
+2. **ຊື່-ນາມສະກຸນພາສາອັງກິດ** (`first_name_en`, `last_name_en`) ← **ເພີ່ມໃໝ່**
+   - VARCHAR(100) NOT NULL
+   - ມີ INDEX ສຳລັບຄົ້ນຫາທີ່ໄວ
+   - ໃຊ້ສຳລັບ:
+     * ເອກະສານສາກົນ
+     * ໃບປະກາດນຽບັດ
+     * ການຄົ້ນຫາ
+
+3. **ການຄົ້ນຫາອັດສະລິຍະ**:
+   - ຄົ້ນຫາທັງສອງພາສາພ້ອມກັນ
+   - ພິມເປັນພາສາລາວ → ເຈອລາຍຊື່ພາສາລາວ
+   - ພິມເປັນພາສາອັງກິດ → ເຈອລາຍຊື່ພາສາອັງກິດ
+
+### ຕົວຢ່າງຂໍ້ມູນ:
+```
+ລາວ                          |  ອັງກິດ
+-----------------------------------------------------
+ທ້າວ ບຸນທອງ ວົງພິມພາ          |  Mr. Bounthong Vongphimpha
+ນາງ ສຸລິນດາ ຊາລີວົງສະໂລ       |  Ms. Surinda Chaliwongsalo
+ທ້າວ ກຽມຊັຍ ທິມມະເລີນ         |  Mr. Kiemxay Thimmalern
+```
+
+### ການນຳໃຊ້:
+- **Edit Form**: ສອງຊ່ອງຂໍ້ມູນແຍກຈາກກັນ
+- **View Page**: ສະແດງທັງສອງພາສາ ສວຍງາມດ້ວຍ cards
+- **Excel Export**: ມີສອງຄໍລຳ (Lao & English)
+- **Search**: ຄົ້ນຫາໄດ້ທັງສອງພາສາ
+
+---
+
+## 🎨 ການປັບປຸງ UI/UX
+
+### 1. Edit Registration Page (`edit_registration.php`)
+**ການປັບປຸງໃໝ່:**
+- ✅ ແຍກ CSS ອອກເປັນ `admin/css/edit_registration.css`
+- ✅ Amount Input ປັບປຸງໃໝ່:
+  * Type: `text` (ແທນ number)
+  * Real-time formatting
+  * Cursor management
+  * Validation feedback
+- ✅ Live Preview Badge
+- ✅ Responsive Design
+- ✅ File Upload Area ທີ່ສວຍງາມ
+
+### 2. View Registration Page (`view_registration.php`)
+**ການປັບປຸງໃໝ່:**
+- ✅ แยก CSS ອອກເປັນ `admin/css/view_registration.css`
+- ✅ Card-based Layout:
+  * ຂໍ້ມູນສ່ວນຕົວ card
+  * ຂໍ້ມູນການສຶກສາ card
+  * ຂໍ້ມູນການຕິດຕໍ່ card
+  * ຂໍ້ມູນການຊຳລະເງິນ card
+- ✅ Status Badge ຫຼາຍສີ
+- ✅ File Preview ພ້ອມ lightbox
+- ✅ Timeline (ວັນທີ່ລົງທະບຽນ)
+- ✅ Bilingual Name Display
+
+### 3. CSS Architecture
+```
+admin/css/
+├── edit_registration.css   (200+ lines)
+│   ├── Form Styling
+│   ├── Amount Input
+│   ├── File Upload
+│   └── Responsive
+│
+└── view_registration.css   (250+ lines)
+    ├── Card Layout
+    ├── Badge Styles
+    ├── File Preview
+    └── Responsive
+```
+
+---
+
+## 🔥 ຄຸນສົມບັດພິເສດ
 
 ### 📊 **Real-time Statistics**
 - ຈຳນວນຜູ້ສະມັກທັງໝົດ
@@ -281,22 +526,203 @@ define('RECORDS_PER_PAGE', 20); // 20 ລາຍການຕໍ່ໜ້າ
 - ກວດສອບວ່າໄຟລ໌ບໍ່ເກີນຂະໜາດທີ່ກຳນົດ
 ```
 
-**3. ຟອນ Phetsarath ບໍ່ສະແດງ:**
+**3. ຈຳນວນເງິນບໍ່ສະແດງຖືກຕ້ອງ:**
 ```
-- ກວດສອບການເຊື່ອມຕໍ່ອິນເຕີເນັດ
-- ລອງ refresh ໜ້າເວັບ
-- ກວດສອບ Browser Support
-```
-
-**4. ຂໍ້ຜິດພາດ Logo ບໍ່ສະແດງ:**
-```
-- ກວດສອບວ່າມີໄຟລ໌ college-logo.png ໃນໂຟນເດີ assets/images/
-- ກວດສອບ path ໃນໄຟລ໌ header.php, index.php
-- ຂະໜາດຮູບບໍ່ຄວນເກີນ 2MB
+- ກວດສອບວ່າມີຄໍລຳ amount ໃນຖານຂໍ້ມູນ (DECIMAL 10,2)
+- Run SQL: ALTER TABLE registrations ADD COLUMN amount DECIMAL(10,2) DEFAULT 200000.00;
+- ກວດສອບໃນໜ້າ Edit ວ່າ input type="text" (ບໍ່ແມ່ນ number)
+- ກວດສອບວ່າມີ JavaScript ສຳລັບ real-time formatting
 ```
 
-**5. ການລົງທະບຽນບໍ່ສຳເລັດ:**
+**4. Excel Export ຈຳນວນເງິນບໍ່ຖືກ:**
 ```
+- ກວດສອບວ່າໃຊ້ number_format($amount, 0, '', '') (ບໍ່ມີ comma)
+- ກວດສອບວ່າມີ style="mso-number-format:\@;" ໃນ <td>
+- ຖ້າສະແດງ 100,000 ແທນ 100000 → ຕ້ອງແກ້ໃນ export_excel_final.php
+```
+
+**5. ຊື່ພາສາອັງກິດບໍ່ບັນທຶກ:**
+```
+- ກວດສອບວ່າມີຄໍລຳ first_name_en, last_name_en (VARCHAR 100)
+- Run SQL: ALTER TABLE registrations ADD COLUMN first_name_en VARCHAR(100) NULL;
+- Run SQL: ALTER TABLE registrations ADD COLUMN last_name_en VARCHAR(100) NULL;
+- ກວດສອບວ່າມີ input field ໃນ register.php ແລະ edit_registration.php
+```
+
+**6. CSS ບໍ່ຖືກໂຫຼດ:**
+```
+- ກວດສອບວ່າມີໂຟນເດີ admin/css/
+- ກວດສອບວ່າມີໄຟລ໌ edit_registration.css ແລະ view_registration.css
+- ກວດສອບ path ໃນ <link> tag: href="css/..."
+```
+
+---
+
+## 🧪 ການທົດສອບ
+
+### Test Cases ສຳລັບ v2.0:
+
+**1. ທົດສອບຊື່ສອງພາສາ:**
+```
+✅ ບັນທຶກຊື່ລາວ: "ບຸນທອງ ວົງພິມພາ"
+✅ ບັນທຶກຊື່ອັງກິດ: "Bounthong Vongphimpha"
+✅ ຄົ້ນຫາດ້ວຍຊື່ລາວ
+✅ ຄົ້ນຫາດ້ວຍຊື່ອັງກິດ
+✅ ສະແດງໃນ View Page
+✅ ສົ່ງອອກ Excel ມີທັງສອງຄໍລຳ
+```
+
+**2. ທົດສອບ Amount Input:**
+```
+✅ ພິມ 100000 → ສະແດງ 100,000
+✅ ພິມ 2500000 → ສະແດງ 2,500,000
+✅ Copy-Paste 300000 → Format ອັດຕະໂນມັດ
+✅ ລົບຕົວເລກ → Update real-time
+✅ Badge ສະແດງຈຳນວນຖືກ
+✅ ບັນທຶກເຂົ້າຖານຂໍ້ມູນຖືກ
+```
+
+**3. ທົດສອບ Excel Export:**
+```
+✅ ສົ່ງອອກຂໍ້ມູນທັງໝົດ
+✅ ມີຊື່ສອງພາສາ
+✅ ຈຳນວນເງິນສະແດງແບບ: 100000, 200000 (ບໍ່ມີ comma)
+✅ ສະຫຼຸບຍອດເງິນຖືກຕ້ອງ
+✅ ສະຖິຕິເປີເຊັນຖືກຕ້ອງ
+✅ ສີສັນຈັດກຸ່ມຕາມສະຖານະ
+```
+
+**4. ທົດສອບ UI/UX:**
+```
+✅ Edit Page: CSS ແຍກອອກແລ້ວ
+✅ View Page: Card layout ສວຍງາມ
+✅ Responsive ທຸກອຸປະກອນ
+✅ Status Badge ມີສີຖືກຕ້ອງ
+✅ File Preview ເຮັດວຽກ
+```
+
+---
+
+## 🔄 Migration Guide (v1.x → v2.0)
+
+### ຂັ້ນຕອນອັບເກຣດ:
+
+**1. Backup ຂໍ້ມູນເກົ່າ:**
+```bash
+mysqldump -u root cert_system > backup_v1.sql
+```
+
+**2. ເພີ່ມຄໍລຳໃໝ່:**
+```sql
+-- ຊື່ພາສາອັງກິດ
+ALTER TABLE registrations 
+ADD COLUMN first_name_en VARCHAR(100) NULL AFTER first_name,
+ADD COLUMN last_name_en VARCHAR(100) NULL AFTER last_name;
+
+-- ຈຳນວນເງິນ
+ALTER TABLE registrations 
+ADD COLUMN amount DECIMAL(10,2) DEFAULT 200000.00 AFTER phone;
+
+-- Index ສຳລັບການຄົ້ນຫາ
+CREATE INDEX idx_first_name_en ON registrations(first_name_en);
+CREATE INDEX idx_last_name_en ON registrations(last_name_en);
+```
+
+**3. Update ໄຟລ໌:**
+```bash
+# ສຳເນົາໄຟລ໌ໃໝ່
+cp new_version/admin/edit_registration.php admin/
+cp new_version/admin/view_registration.php admin/
+cp new_version/admin/export_excel_final.php admin/
+
+# ສ້າງໂຟນເດີ CSS
+mkdir admin/css
+cp new_version/admin/css/*.css admin/css/
+```
+
+**4. ກວດສອບ:**
+```
+✅ ເຂົ້າໃຊ້ລະບົບ
+✅ ລົງທະບຽນໃໝ່ພ້ອມຊື່ສອງພາສາ
+✅ ແກ້ໄຂຈຳນວນເງິນ
+✅ ສົ່ງອອກ Excel ແລະກວດສອບສະຫຼຸບ
+```
+
+---
+
+## 📚 ເອກະສານອ້າງອີງ
+
+### SQL Scripts:
+- `config/database.sql` - ຖານຂໍ້ມູນເຕັມ (ລວມທຸກຢ່າງໄວ້ແລ້ວ)
+  * ສ້າງຖານຂໍ້ມູນ cert_system
+  * ສ້າງຕາຕະລາງ users ແລະ registrations
+  * ລວມຄໍລຳ first_name_en, last_name_en
+  * ລວມຄໍລຳ amount (DECIMAL 10,2)
+  * ເພີ່ມ Index ທັງໝົດ
+  * ຂໍ້ມູນເລີ່ມຕົ້ນ (Admin + Sample data)
+
+### Documentation:
+- `README.md` - ເອກະສານຫຼັກທັງໝົດ (ລາວ)
+  * ລະບົບຊື່ສອງພາສາ ✅
+  * ລະບົບຈຳນວນເງິນ ✅
+  * ລະບົບສົ່ງອອກ Excel ✅
+  * Migration Guide ✅
+
+---
+
+## 🎯 Roadmap
+
+### ເວີຊັນຕໍ່ໄປ (v2.1):
+- [ ] ລະບົບແຈ້ງເຕືອນທາງອີເມວ
+- [ ] QR Code ສຳລັບການຊຳລະເງິນ
+- [ ] ລາຍງານ PDF ອັດຕະໂນມັດ
+- [ ] API ສຳລັບລະບົບພາຍນອກ
+- [ ] Multi-language Support (ລາວ, ອັງກິດ, ໄທ)
+
+### ເວີຊັນອະນາຄົດ (v3.0):
+- [ ] Mobile App (React Native)
+- [ ] Payment Gateway Integration
+- [ ] Advanced Analytics Dashboard
+- [ ] AI-powered Document Verification
+
+---
+
+## 👥 Contributors
+
+- **ນັກພັດທະນາ**: [ຊື່ທ່ານ]
+- **ສະຖາບັນ**: [ຊື່ສະຖາບັນ]
+- **ອີເມວ**: [ອີເມວຕິດຕໍ່]
+
+---
+
+## 📄 License
+
+MIT License - ສາມາດນຳໄປໃຊ້ໄດ້ຟຣີສຳລັບທຸກໂຄງການ
+
+---
+
+## 🙏 ຂໍຂອບໃຈ
+
+- **Bootstrap 5** - UI Framework
+- **Font Awesome** - Icons
+- **Google Fonts** - Phetsarath Font
+- **PHP & MySQL** - Backend Stack
+- **XAMPP** - Development Environment
+
+---
+
+## 📞 ຕິດຕໍ່ສອບຖາມ
+
+ຫາກມີຄຳຖາມ ຫຼື ຕ້ອງການຄວາມຊ່ວຍເຫຼືອ:
+- 📧 Email: [your-email@example.com]
+- 💬 Facebook: [Your FB Page]
+- 📱 Tel: [Your Phone Number]
+
+---
+
+**ສຸດທ້າຍປັບປຸງ**: 13 ຕຸລາ 2025  
+**ເວີຊັນ**: 2.0.0  
+**ສະຖານະ**: ✅ Stable Release
 - ກວດສອບການເຊື່ອມຕໍ່ຖານຂໍ້ມູນ
 - ກວດສອບວ່າໄຟລ໌ທີ່ອັບໂຫຼດຕອງກັບຂໍ້ກຳນົດ
 - ກວດສອບ PHP error log ໃນ logs/

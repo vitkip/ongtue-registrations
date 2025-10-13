@@ -71,3 +71,37 @@
 [2025-09-25 08:17:49] User: anonymous (ID: anonymous) | IP: ::1 | Action: New registration | Details: Student code: STU6107, Email: p000asyla@gmail.com
 [2025-09-25 08:18:01] User: admin (ID: 1) | IP: ::1 | Action: User login | Details: Username: admin
 [2025-09-25 08:36:51] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 15 registrations as Excel by admin
+[2025-10-13 12:06:38] User: admin (ID: 1) | IP: ::1 | Action: Registration deleted | Details: Registration ID: 5
+[2025-10-13 12:06:43] User: admin (ID: 1) | IP: ::1 | Action: Registration set to pending | Details: Registration ID: 25
+[2025-10-13 12:08:52] User: admin (ID: 1) | IP: ::1 | Action: APPROVE_REGISTRATION | Details: Approved registration ID: 25
+[2025-10-13 12:09:03] User: admin (ID: 1) | IP: ::1 | Action: Registration set to pending | Details: Registration ID: 15
+[2025-10-13 12:09:08] User: admin (ID: 1) | IP: ::1 | Action: APPROVE_REGISTRATION | Details: Approved registration ID: 15
+[2025-10-13 12:09:44] User: admin (ID: 1) | IP: ::1 | Action: TEST_APPROVE | Details: Test approval for registration ID: 25
+[2025-10-13 12:11:52] User: admin (ID: 1) | IP: ::1 | Action: REJECT_REGISTRATION | Details: Rejected registration ID: 15
+[2025-10-13 12:11:56] User: admin (ID: 1) | IP: ::1 | Action: APPROVE_REGISTRATION | Details: Approved registration ID: 15
+[2025-10-13 12:12:02] User: admin (ID: 1) | IP: ::1 | Action: Registration set to pending | Details: Registration ID: 25
+[2025-10-13 12:12:10] User: admin (ID: 1) | IP: ::1 | Action: APPROVE_REGISTRATION | Details: Approved registration ID: 25
+[2025-10-13 12:12:51] User: admin (ID: 1) | IP: ::1 | Action: User logout | Details: Username: admin
+[2025-10-13 12:23:28] User: admin (ID: 1) | IP: ::1 | Action: User login | Details: Username: admin
+[2025-10-13 12:27:04] User: admin (ID: 1) | IP: ::1 | Action: Bulk delete registrations | Details: IDs: 25,24,23,22,21,20,19,18,17,15
+[2025-10-13 12:27:51] User: admin (ID: 1) | IP: ::1 | Action: Bulk delete registrations | Details: IDs: 14,13,12,11,10,9,8,7,6,1
+[2025-10-13 12:30:19] User: admin (ID: 1) | IP: ::1 | Action: User logout | Details: Username: admin
+[2025-10-13 12:31:38] User: anonymous (ID: anonymous) | IP: ::1 | Action: New registration | Details: Student code: STU5958, Email: phath@gmail.com
+[2025-10-13 12:31:58] User: admin (ID: 1) | IP: ::1 | Action: User login | Details: Username: admin
+[2025-10-13 12:32:25] User: admin (ID: 1) | IP: ::1 | Action: APPROVE_REGISTRATION | Details: Approved registration ID: 26
+[2025-10-13 12:32:58] User: admin (ID: 1) | IP: ::1 | Action: Registration deleted | Details: Registration ID: 2
+[2025-10-13 12:33:07] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 1 registrations as Excel by admin
+[2025-10-13 12:42:03] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 6 registrations as Excel by admin
+[2025-10-13 12:52:00] User: admin (ID: 1) | IP: ::1 | Action: Bulk approve registrations | Details: IDs: 27,28,29,30,31,26
+[2025-10-13 13:01:46] User: admin (ID: 1) | IP: ::1 | Action: User logout | Details: Username: admin
+[2025-10-13 16:15:35] User: admin (ID: 1) | IP: ::1 | Action: User login | Details: Username: admin
+[2025-10-13 16:40:58] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 6 registrations as Excel by admin
+[2025-10-13 16:42:29] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 6 registrations as Excel by admin
+[2025-10-13 16:47:25] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 6 registrations as Excel by admin
+[2025-10-13 16:50:13] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 6 registrations as Excel by admin
+[2025-10-13 16:56:52] User: admin (ID: 1) | IP: ::1 | Action: User logout | Details: Username: admin
+[2025-10-13 16:58:25] User: anonymous (ID: anonymous) | IP: ::1 | Action: New registration | Details: Student code: STU1448, Email: vila@gmail.com
+[2025-10-13 16:59:42] User: admin (ID: 1) | IP: ::1 | Action: APPROVE_REGISTRATION | Details: Approved registration ID: 32
+[2025-10-13 16:59:52] User: admin (ID: 1) | IP: ::1 | Action: Registration set to pending | Details: Registration ID: 27
+[2025-10-13 17:00:01] User: admin (ID: 1) | IP: ::1 | Action: APPROVE_REGISTRATION | Details: Approved registration ID: 27
+[2025-10-13 17:00:31] User: admin (ID: 1) | IP: ::1 | Action: Excel export | Details: Exported 7 registrations as Excel by admin
