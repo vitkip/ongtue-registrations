@@ -19,9 +19,23 @@ define('ALLOWED_DOC_TYPES', ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']);
 define('SESSION_NAME', 'cert_registration_session');
 define('SESSION_LIFETIME', 3600); // 1 hour
 
+// Configure session settings before any session_start()
+if (session_status() === PHP_SESSION_NONE) {
+    // Set session cookie parameters
+    ini_set('session.cookie_lifetime', SESSION_LIFETIME);
+    ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_secure', 0); // Set to 1 if using HTTPS
+    ini_set('session.use_strict_mode', 1);
+    
+    // Set session name
+    session_name(SESSION_NAME);
+}
+
 // Security Settings
 define('CSRF_TOKEN_NAME', 'csrf_token');
 define('HASH_ALGO', 'sha256');
+define('DEBUG_CSRF', false); // Set to true for CSRF debugging
 
 // Pagination Settings
 define('RECORDS_PER_PAGE', 10);

@@ -1,8 +1,10 @@
 <?php
-session_start();
 require_once 'config/config.php';
 require_once 'config/database.php';
 require_once 'includes/functions.php';
+
+// Ensure session is properly started
+ensureSessionStarted();
 
 // Initialize variables
 $errors = [];
@@ -10,9 +12,12 @@ $success = false;
 
 // Handle form submission
 if ($_POST) {
-    // Verify CSRF token
-    if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
-        $errors[] = 'ການສົ່ງຟອມບໍ່ຖືກຕ້ອງ';
+    // Enhanced CSRF token validation
+    $submittedToken = $_POST['csrf_token'] ?? '';
+    
+    // Use enhanced verification with fallback
+    if (!verifyCSRFTokenWithFallback($submittedToken)) {
+        $errors[] = 'ການສົ່ງຟອມບໍ່ຖືກຕ້ອງ - ກະລຸນາລອງໃໝ່';
     }
     
     // Sanitize and validate input
@@ -57,8 +62,14 @@ if ($_POST) {
         $errors[] = 'ກະລຸນາອັບໂຫຼດໃບຢັ້ງຢືນການຈ່າຍເງິນ';
     }
     
-    // Check if email already exists
-    if (!empty($email) && empty($errors)) {
+    // Check database connection before proceeding
+    if ($db === null) {
+        $errors[] = 'ເກີດຂໍ້ຜິດພາດໃນການເຊື່ອມຕໍ່ຖານຂໍ້ມູນ ກະລຸນາລອງໃໝ່ພາຍຫຼັງ';
+        error_log("Database connection failed during registration attempt");
+    }
+    
+    // Check if email already exists (only if database is available)
+    if (!empty($email) && empty($errors) && $db !== null) {
         try {
             $stmt = $db->query("SELECT id FROM registrations WHERE email = ?", [$email]);
             if ($stmt->fetch()) {
@@ -96,8 +107,8 @@ if ($_POST) {
         }
     }
     
-    // Insert registration if no errors
-    if (empty($errors)) {
+    // Insert registration if no errors and database is available
+    if (empty($errors) && $db !== null) {
         try {
             $db->beginTransaction();
             
